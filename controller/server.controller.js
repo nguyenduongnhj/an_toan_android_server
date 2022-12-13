@@ -6,10 +6,8 @@ const serverService = require("../services/server.service")
 
 const getListServer = async (req, res) => {
     try {
-        let listCountry = await serverService.getListCountry()
-        console.log("SERVER: ", listCountry)
-        let listStatic = await serverService.getListStaticServer()
-        console.log("STATIC: ", listStatic)
+        let listCountry = await serverService.getListCountry() 
+        let listStatic = await serverService.getListStaticServer() 
 
         return res.json(
             successResponse({

@@ -15,16 +15,19 @@ const onLogin = async (req, res) => {
 
             const appAccessToken = generateAccessToken({ id: data._id, email: data.email })
             const refreshToken = getRefreshToken(appAccessToken)
-
+            let tokenX = await getToken()
             return res.json(
                 successResponse({
                     user: {
                         ...data,
-                        id: data._id
+                        id: 0,
+                        password: null,
+                        created_at: 0,
+                        updated_at:0
                     },
                     tokens: {
                         access: {
-                            token: appAccessToken
+                            token: tokenX
                         },
                         refresh: {
                             token: refreshToken
@@ -106,7 +109,7 @@ const getToken = async () => {
         return null
     }
 }
-
+ 
 module.exports = {
     onLogin,
     onRegister,
