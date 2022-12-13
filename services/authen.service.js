@@ -24,8 +24,19 @@ const register = async (email, password) => {
     return await user.save();
 }
 
+const changePassword = async (email, oldPass, newPass) => {
+    let user = await UserModel.findOne({ email: email }).lean();
+    if (user != null && bcrypt.compareSync(oldPass, user.password)) {
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hash = bcrypt.hashSync(newPass, salt);
+        return await UserModel.updateOne({ email: email }, { password: hash }).exec()
+    }
+    return null
+}
+
 
 module.exports = {
     onLogin,
     register,
+    changePassword
 }

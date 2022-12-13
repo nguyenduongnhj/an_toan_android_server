@@ -1,7 +1,7 @@
 
 const successResponse = (data, message = "success") => {
     return {
-        error: false,
+        success: true,
         message: message,
         result: data
     }
@@ -9,9 +9,9 @@ const successResponse = (data, message = "success") => {
 
 const errorResponse = (message = "error", data = null) => {
     return {
-        error: true,
+        success: false,
         message: message,
-        result: data
+        errors: data
     }
 }
 

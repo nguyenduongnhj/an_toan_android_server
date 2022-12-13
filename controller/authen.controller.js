@@ -8,13 +8,12 @@ const { requestData } = require("../utils/requestServer")
 
 const onLogin = async (req, res) => {
     const { email, password } = req.body;
-
     try {
         let data = await authService.onLogin(email, password)
 
         if (data != null) {
 
-            const appAccessToken = generateAccessToken({ id: data._id, deviceId: data.email })
+            const appAccessToken = generateAccessToken({ id: data._id, email: data.email })
             const refreshToken = getRefreshToken(appAccessToken)
 
             return res.json(
@@ -40,6 +39,25 @@ const onLogin = async (req, res) => {
         console.log(e)
         res.json(errorResponse("error"))
     }
+}
+
+
+const onChangePassword = async (req, res) => {
+    try {
+        const { oldPass, newPass } = req.body;
+        let email = req.user.email
+        console.log("EMAIL: ", email)
+        let user = await authService.changePassword(email, oldPass, newPass)
+        if (user != null) {
+            res.json(
+                successResponse())
+            return res
+        }
+        return res.json(errorResponse("Password not match", ["Password not match"]))
+    } catch (e) {
+        return res.json(errorResponse("Password not match", ["Password not match"]))
+    }
+
 }
 
 const onRegister = async (req, res) => {
@@ -81,7 +99,6 @@ const getToken = async () => {
                     "deviceId": "device_id_1_2", "deviceOs": "Android", "appVersion": "1", "appBundleId": "com.ilg.sysvpn", "isEmulator": 0, "isTablet": 0
                 })
         }
-
         let data = await requestData("https://api.sysvpnconnect.com/shared/module_auth/v1/login", body)
         let token = data.tokens.access.token
         return token
@@ -93,5 +110,6 @@ const getToken = async () => {
 module.exports = {
     onLogin,
     onRegister,
-    getToken
+    getToken,
+    onChangePassword
 }
