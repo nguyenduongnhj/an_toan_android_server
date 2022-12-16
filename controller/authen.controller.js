@@ -23,7 +23,7 @@ const onLogin = async (req, res) => {
                         id: 0,
                         password: null,
                         created_at: 0,
-                        updated_at:0
+                        updated_at: 0
                     },
                     tokens: {
                         access: {
@@ -36,11 +36,11 @@ const onLogin = async (req, res) => {
                 })
             )
         }
-        return res.json(errorResponse("error"))
+        return res.json(errorResponse("Email or password is incorrect"))
 
     } catch (e) {
         console.log(e)
-        res.json(errorResponse("error"))
+        res.json(errorResponse("Error"))
     }
 }
 
@@ -109,7 +109,7 @@ const getToken = async () => {
         return null
     }
 }
- 
+
 module.exports = {
     onLogin,
     onRegister,
