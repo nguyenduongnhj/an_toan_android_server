@@ -9,7 +9,7 @@ const getListServer = async (req, res) => {
         let listCountry = await serverService.getListCountry() 
         let listStatic = await serverService.getListStaticServer() 
 
-        return res.json(
+        return res.ecc(
             successResponse({
                 availableCountries: listCountry,
                 staticServers: listStatic

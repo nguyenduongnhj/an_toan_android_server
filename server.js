@@ -6,7 +6,7 @@ const fs = require(`fs`);
 const express = require('express');
 const Routes = require("./routes");
 const ENV = require('./env');
-
+const {eccMiddleware} = require("./middleware/EccMiddleware")
 const connectDB = require("./db")
 
 const app = express();
@@ -29,8 +29,8 @@ if (process.env.HTTPS) {
 app.use(cors())
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
+app.use(eccMiddleware)
 app.use(express.urlencoded({ extended: false }));
-
 
 Routes(app);
 /*

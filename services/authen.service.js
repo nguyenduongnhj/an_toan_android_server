@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const onLogin = async (email, password) => {
+    console.log("login",email, password)
     let user = await UserModel.findOne({ email: email }).lean();
     if (bcrypt.compareSync(password, user.password)) {
         return user

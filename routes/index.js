@@ -1,6 +1,7 @@
 const userRouter = require("./user.router");
 const countryRouter = require("./country.router");
 const middlewareRouter = require("./middleware.router");
+const { eccMiddleware } = require("../middleware/EccMiddleware");
 
 function Routes(app) {
     app.use("/v1/auth", userRouter);

@@ -15,6 +15,7 @@ module.exports = {
      */
     convertPemToJwk: (privateOrPublicPem, privateKeyOps = [],
         publicKeyOps = []) => {
+            
         return commonEcc.convertPemToJwk(
             CURVE_NAME, privateOrPublicPem, privateKeyOps, publicKeyOps)
     },
@@ -82,5 +83,9 @@ module.exports = {
      */
     computeSecret: (privatePemKey, otherPublicPemKey) => {
         return commonEcc.computeSecret(CURVE_NAME, privatePemKey, otherPublicPemKey)
+    },
+
+    computeSecretRaw: (privatePemKey, otherPublicPemKey) => {
+        return commonEcc.computeSecretRaw(CURVE_NAME, privatePemKey, otherPublicPemKey)
     }
 }

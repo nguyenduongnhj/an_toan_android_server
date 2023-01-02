@@ -8,6 +8,7 @@ const base64 = require('./base64')
  * @param {Object} jwk - The JSON Web Key for which a `kid` is going to be generated.
  * @returns {Promise<string>} The key identifier.
  */
+ 
 const generateKeyIdentifier = (jwk) => {
     return new Promise(async (resolve, reject) => {
         if (jwk && jwk.publicKey && jwk.publicKey.x) {
@@ -216,6 +217,20 @@ module.exports = {
             try {
                 let ecdh = crypto.createECDH(curveName)
                 ecdh.setPrivateKey((ecKeyUtils.parsePem(privatePemKey)).privateKey)
+
+                return resolve(ecdh.computeSecret(
+                    (ecKeyUtils.parsePem(otherPublicPemKey)).publicKey))
+            } catch (err) {
+                return reject(err)
+            }
+        })
+    },
+
+    computeSecretRaw: (curveName, privateKey, otherPublicPemKey) => {
+        return new Promise((resolve, reject) => {
+            try {
+                let ecdh = crypto.createECDH(curveName)
+                ecdh.setPrivateKey( privateKey )
 
                 return resolve(ecdh.computeSecret(
                     (ecKeyUtils.parsePem(otherPublicPemKey)).publicKey))
