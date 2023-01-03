@@ -102,7 +102,7 @@ const getToken = async () => {
                     "deviceId": "device_id_1_2", "deviceOs": "Android", "appVersion": "1", "appBundleId": "com.ilg.sysvpn", "isEmulator": 0, "isTablet": 0
                 })
         }
-        let data = await requestData("https://api.sysvpnconnect.com/shared/module_auth/v1/login", body)
+        let data = await requestData("https://prod.sysvpnconnect.com/shared/module_auth/v1/login", body)
         let token = data.tokens.access.token
         return token
     } catch (e) {

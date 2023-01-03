@@ -25,11 +25,11 @@ const requestCert = async (req, res) => {
         } else {
             body["cityId"] = idServer
         }
-        let data = await requestQueryData("https://api.sysvpnconnect.com/app/module_server/v1/vpn/request_certificate", body, "GET", token)
+        let data = await requestQueryData("https://prod.sysvpnconnect.com/app/module_server/v1/vpn/request_certificate", body, "GET", token)
         console.log("DATA:", data)
-        return res.json(successResponse(data))
+        return res.ecc(successResponse(data))
     } catch (e) {
-        return res.json(errorResponse())
+        return res.ecc(errorResponse())
     }
 
 }
